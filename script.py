@@ -29,23 +29,26 @@ def downpic(url, path):
         f.close
 
 
-def downpics(search, pagenum, path):
+def downpics(search, pagenum, path,threadnum):
     if not os.path.isdir(path):
         os.makedirs(path)
     threads = []
     for one in geturls(search, pagenum):
         threads.append(threading.Thread(
             target=downpic, args=(one[0], path+one[1])))
-    for onethread in range(1,pagenum):
-        for t in threads[(onethread-1)*24:onethread*24]:
+    splitThread=int(len(threads)/threadnum)
+    for onethread in range(1,splitThread+1):
+        for t in threads[(onethread-1)*threadnum:onethread*threadnum]:
             t.start()          # 开启线程
-        for t in threads[(onethread-1)*24:onethread*24]:
+        for t in threads[(onethread-1)*threadnum:onethread*threadnum]:
             t.join()           # 等待所有线程终止
 
 
-#downpics('sky', 1, "D:/pic/")
+
+#downpics('sky', 1, "D:/pic/",8)
 #第一个参数为搜索关键词
 #第二个参数为图片页数，每24张图片为1.若要下载96张壁纸，则输入4
 #第三个参数为保存路径，末尾要有"/",如果文件夹不存在则自动创建文件夹
+#第四个参数是线程数量，建议4-8，多了容易出错
 
-downpics('sky', 20, "D:/pic/")
+downpics('sky', 5, "D:/pic/",8)
