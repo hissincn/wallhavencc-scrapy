@@ -23,7 +23,7 @@ def geturls(search, pageall):
 
 
 def downpic(url, path):
-    r = requests.get(url)
+    r = requests.get(url,stream=True)
     with open(path, 'wb') as f:
         f.write(r.content)
         f.close
@@ -45,10 +45,10 @@ def downpics(search, pagenum, path,threadnum):
 
 
 
-#downpics('sky', 1, "D:/pic/",8)
+#downpics('sky', 1, "D:/pic/",48)
 #第一个参数为搜索关键词
 #第二个参数为图片页数，每24张图片为1.若要下载96张壁纸，则输入4
 #第三个参数为保存路径，末尾要有"/",如果文件夹不存在则自动创建文件夹
-#第四个参数是线程数量，建议2-6，多了容易出错
+#第四个参数是线程数量，建议24-48，多了容易出错
 
-downpics('sky', 5, "D:/pic/",4)
+downpics('sky', 5, "D:/pic/",48)
