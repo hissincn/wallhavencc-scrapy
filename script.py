@@ -36,10 +36,11 @@ def downpics(search, pagenum, path):
     for one in geturls(search, pagenum):
         threads.append(threading.Thread(
             target=downpic, args=(one[0], path+one[1])))
-    for t in threads:
-        t.start()          # 开启线程
-    for t in threads:
-        t.join()           # 等待所有线程终止
+    for onethread in range(1,pagenum):
+        for t in threads[(onethread-1)*24:onethread*24]:
+            t.start()          # 开启线程
+        for t in threads[(onethread-1)*24:onethread*24]:
+            t.join()           # 等待所有线程终止
 
 
 #downpics('sky', 1, "D:/pic/")
@@ -47,4 +48,4 @@ def downpics(search, pagenum, path):
 #第二个参数为图片页数，每24张图片为1.若要下载96张壁纸，则输入4
 #第三个参数为保存路径，末尾要有"/",如果文件夹不存在则自动创建文件夹
 
-downpics('sky', 1, "D:/pic/")
+downpics('sky', 20, "D:/pic/")
