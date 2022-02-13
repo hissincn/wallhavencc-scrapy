@@ -1,4 +1,3 @@
-from importlib.resources import path
 import requests
 from bs4 import BeautifulSoup
 import threading
